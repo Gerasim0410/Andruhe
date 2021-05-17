@@ -692,6 +692,7 @@ private: System::Void button1_Click_1(System::Object^ sender, System::EventArgs^
 	double  sum = 0;
 	double xq; // âûáîðî÷íîå ñðåäíåå 
 	double* arr = new double[n];
+	double* yy = new double[n];
 	 double temp;
 	double S; // âûáîðî÷íàÿ äèñïåðñèÿ 
 	double R;//ðàçìàõ âûáîðêè 
