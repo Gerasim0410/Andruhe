@@ -270,7 +270,7 @@ namespace Graph {
 			this->label2->Name = L"label2";
 			this->label2->Size = System::Drawing::Size(16, 17);
 			this->label2->TabIndex = 15;
-			this->label2->Text = L"а";
+			this->label2->Text = L"Г ";
 			// 
 			// textBox2
 			// 
@@ -427,7 +427,7 @@ namespace Graph {
 			this->label6->Name = L"label6";
 			this->label6->Size = System::Drawing::Size(123, 17);
 			this->label6->TabIndex = 26;
-			this->label6->Text = L"Границы отрезка";
+			this->label6->Text = L"ГѓГ°Г Г­ГЁГ¶Г» Г®ГІГ°ГҐГ§ГЄГ ";
 			// 
 			// button3
 			// 
@@ -435,7 +435,7 @@ namespace Graph {
 			this->button3->Name = L"button3";
 			this->button3->Size = System::Drawing::Size(117, 28);
 			this->button3->TabIndex = 28;
-			this->button3->Text = L"Задать";
+			this->button3->Text = L"Г‡Г Г¤Г ГІГј";
 			this->button3->UseVisualStyleBackColor = true;
 			this->button3->Click += gcnew System::EventHandler(this, &MyForm::button3_Click);
 			// 
@@ -501,7 +501,7 @@ namespace Graph {
 			this->label5->Name = L"label5";
 			this->label5->Size = System::Drawing::Size(150, 17);
 			this->label5->TabIndex = 34;
-			this->label5->Text = L"Количество отрезков";
+			this->label5->Text = L"ГЉГ®Г«ГЁГ·ГҐГ±ГІГўГ® Г®ГІГ°ГҐГ§ГЄГ®Гў";
 			// 
 			// MyForm
 			// 
@@ -606,14 +606,14 @@ namespace Graph {
 		 return res;
 	 }
 	
-	private: double searh_En(float& a, double& p)// поиск мат.ожидания
+	private: double searh_En(float& a, double& p)// ГЇГ®ГЁГ±ГЄ Г¬Г ГІ.Г®Г¦ГЁГ¤Г Г­ГЁГї
 	{
 		double En;
 		En = (-pow(2, 1.25)) / 5 - p / a * cosf(a * p) + sinf(a * p) / pow(a, 2);
 		return En;
 
 	}
-	private: double search_Dn(float& a, double& p)// поиск дисперсии
+	private: double search_Dn(float& a, double& p)// ГЇГ®ГЁГ±ГЄ Г¤ГЁГ±ГЇГҐГ°Г±ГЁГЁ
 	{
 		double Dn;
 		Dn = pow(2, 1.5) / 6 - pow(p, 2) * cosf(a * p) / a + 2 * p * sinf(a * p) / pow(a, 2) + 2 / pow(a, 3) * cosf(a * p) - 2 / pow(a, 3) - pow(searh_En(a, p), 2);
@@ -685,17 +685,17 @@ private: System::Void button1_Click_1(System::Object^ sender, System::EventArgs^
 	PointPairList^ f2_list = gcnew ZedGraph::PointPairList();
 	float a = (float)(Convert::ToDouble(textBox2->Text));
 	int n = (Convert::ToDouble(textBox1->Text));
-	const int number_splits = 10;// число разбиений 
+	const int number_splits = 10;// Г·ГЁГ±Г«Г® Г°Г Г§ГЎГЁГҐГ­ГЁГ© 
 	double F = find_bor(a);
 	double Y;
 	this->textBox3->Text = Convert::ToString(F);
 	double  sum = 0;
-	double xq; // выборочное среднее 
+	double xq; // ГўГ»ГЎГ®Г°Г®Г·Г­Г®ГҐ Г±Г°ГҐГ¤Г­ГҐГҐ 
 	double* arr = new double[n];
 	 double temp;
-	double S; // выборочная дисперсия 
-	double R;//размах выборки 
-	double D = 0; // Мера расхождения
+	double S; // ГўГ»ГЎГ®Г°Г®Г·Г­Г Гї Г¤ГЁГ±ГЇГҐГ°Г±ГЁГї 
+	double R;//Г°Г Г§Г¬Г Гµ ГўГ»ГЎГ®Г°ГЄГЁ 
+	double D = 0; // ГЊГҐГ°Г  Г°Г Г±ГµГ®Г¦Г¤ГҐГ­ГЁГї
 	double max = 0;
 	int count = 0;
 	this->dataGridView1->ColumnCount = 3;
@@ -704,69 +704,27 @@ private: System::Void button1_Click_1(System::Object^ sender, System::EventArgs^
 
 	for (int i = 0; i < n; i++)
 	{
-		Y = rand_search();
-		dataGridView1->Rows[i]->Cells[1]->Value = Y;
-		dataGridView1->Rows[i]->Cells[0]->Value = i+1;
-		arr[i] = get_continuous_value(Y, a);
-		sum +=   arr[i];
-		
-
+		yy[i] = rand_search();
 	}
-	std::sort(arr, arr+(n));
-	/*for (int i = 0; i < n - 1; i++) {
-		for (int j = 0; j < n - i - 1; j++) {
-			if (arr[j] > arr[j + 1]) {
-				// меняем элементы местами
-				temp = arr[j];
-				arr[j] = arr[j + 1];
-				arr[j + 1] = temp;
-			}
-		}
-		
-	}*/
-	
-	/*int i = 0;
-	int j = 1;
-	while (j - 1 < n / 100)
+	std::sort(yy, yy + (n));
+	for (int i = 0; i < n; i++)
 	{
-		while (i  < 100*j)
-		{
-			dataGridView1->Rows[i]->Cells[1]->Value = arr[i];
-			i++;
-		}
-		j++;
+		dataGridView1->Rows[i]->Cells[2]->Value = yy[i];
 	}
-	*/
+	for (int i = 0; i < n; i++)
+	{
+		dataGridView1->Rows[i]->Cells[0]->Value = i+1;
+		arr[i] = get_continuous_value(yy[i], a);
+		sum += arr[i];	
+	}
+
 	int i = 0;
 	while (i < n)
 	{
 		v2.push_back(arr[i]);
-		dataGridView1->Rows[i]->Cells[2]->Value = arr[i];
+		dataGridView1->Rows[i]->Cells[1]->Value = arr[i];
 		i++;
 	}
-	
-	
-	/*for (int i = 0; i < n; i++)
-	{
-		if (arr[i] <= 0)
-		{
-			max = fabs(1.0 / n * (i + 1) - 0.5 + pow(arr[i], 4) / 4);
-			if (max > D)
-			{
-				D = max;
-			}
-		}
-		else
-		{
-			max = fabs(1.0 / n * (i + 1) - 0.5 + 1 / a * (cosf(a * arr[i]) - 1));
-			if (max > D)
-			{
-				D = max;
-			}
-		}
-		
-	}
-	*/
 	for (double y = -pow(2, 0.25); y < find_bor(a); y += 0.01)
 	{
 		if ( y <= 0)
@@ -815,9 +773,9 @@ private: System::Void button1_Click_1(System::Object^ sender, System::EventArgs^
 
 	S = S / n; 
 	R = (double )dataGridView1->Rows[n-1]->Cells[1]->Value - (double) dataGridView1->Rows[1]->Cells[1]->Value;
-	double X = searh_En(a, F) - sum / n; // |En - x`| |мат. ожидание - выоборочное среднее|
+	double X = searh_En(a, F) - sum / n; // |En - x`| |Г¬Г ГІ. Г®Г¦ГЁГ¤Г Г­ГЁГҐ - ГўГ»Г®ГЎГ®Г°Г®Г·Г­Г®ГҐ Г±Г°ГҐГ¤Г­ГҐГҐ|
 	
-	double Me = 0; // выборочная медиана
+	double Me = 0; // ГўГ»ГЎГ®Г°Г®Г·Г­Г Гї Г¬ГҐГ¤ГЁГ Г­Г 
 	if (n % 2 == 1)
 	{
 		Me = arr[n / 2];
@@ -830,7 +788,7 @@ private: System::Void button1_Click_1(System::Object^ sender, System::EventArgs^
 	this->dataGridView2->Rows[0]->Cells[1]->Value = xq;
 	this->dataGridView2->Rows[0]->Cells[2]->Value = fabsf(X);
 	this->dataGridView2->Rows[0]->Cells[3]->Value = search_Dn(a, F);
-	this->dataGridView2->Rows[0]->Cells[4]->Value = S; //выборочная дисперсия
+	this->dataGridView2->Rows[0]->Cells[4]->Value = S; //ГўГ»ГЎГ®Г°Г®Г·Г­Г Гї Г¤ГЁГ±ГЇГҐГ°Г±ГЁГї
 	this->dataGridView2->Rows[0]->Cells[5]->Value = fabs((double)this->dataGridView2->Rows[0]->Cells[3]->Value - (double)this->dataGridView2->Rows[0]->Cells[4]->Value);
 	this->dataGridView2->Rows[0]->Cells[6]->Value = Me;
 	this->dataGridView2->Rows[0]->Cells[7]->Value = R;
